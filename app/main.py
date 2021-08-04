@@ -72,14 +72,14 @@ def add_sensordata():
     return resp
 
 
-@app.route("/sensor/all")
+@app.route("/sensors/all")
 def get_sensordata():
     from flask import jsonify
     q = SensorData.query.order_by(SensorData.id).all()
-    data = []
+    data = {}
     for item in q:
-        data.append([item.temperature, item.humidity, item.pm10,
-                    item.pm25, item.northing, item.easting])
+        data[item.id] = {"temperature": item.temperature, "humidity": item.humidity, "pm10": item.pm10,
+                         "pm25": item.pm25, "northing": item.northing, "easting": item.easting}
 
     return jsonify(data=data)
 
