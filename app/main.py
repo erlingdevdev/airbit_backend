@@ -72,5 +72,17 @@ def add_sensordata():
     return resp
 
 
+@app.route("/sensor/all")
+def get_sensordata():
+    from flask import jsonify
+    q = SensorData.query.order_by(SensorData.id).all()
+    data = []
+    for item in q:
+        data.append([item.temperature, item.humidity, item.pm10,
+                    item.pm25, item.northing, item.easting])
+
+    return jsonify(data=data)
+
+
 if __name__ == "__main__":
     app.run(port=8080)
