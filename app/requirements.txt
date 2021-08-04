@@ -1,0 +1,8 @@
+flask
+gunicorn
+flask-security
+flask-sqlalchemy
+requests
+email_validator
+Flask-WTF
+bcrypt
