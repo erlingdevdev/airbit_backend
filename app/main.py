@@ -8,7 +8,7 @@ from flask_login import current_user
 from flask_sqlalchemy import SQLAlchemy
 from models import db, Role, User
 import os
-
+from werkzeug.serving import WSGIRequestHandler
 basedir = os.path.abspath(os.path.dirname(__file__, ))
 
 app = Flask(__name__, template_folder="./templates")
@@ -85,4 +85,5 @@ def get_sensordata():
 
 
 if __name__ == "__main__":
+    WSGIRequestHandler.protocol_version = "HTTP/1.1"
     app.run(port=8080)
