@@ -68,7 +68,7 @@ def add_sensordata():
 
     q = SensorData.query.order_by(SensorData.id).all()
     for item in q:
-        print(item.temperature, item.humidity)
+        print(item.temperature, item.humidity, item.time)
     return resp
 
 
@@ -78,7 +78,6 @@ def get_sensordata():
     q = SensorData.query.order_by(SensorData.id).all()
     data = {}
     for item in q:
-        print(item.time)
         data[item.id] = {"temperature": item.temperature, "humidity": item.humidity, "pm10": item.pm10,
                          "pm25": item.pm25, "northing": item.northing, "easting": item.easting}
 
