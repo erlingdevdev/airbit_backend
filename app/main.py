@@ -61,14 +61,16 @@ def sensors():
 def add_sensordata():
     resp = make_response(request.json)
     data = request.json
+    print(data)
     if data:
+
         db.session.add(SensorData(humidity=data["humidity"], temperature=data["temperature"],
                                   pm25=data["pm25"], pm10=data["pm10"], northing="", easting=""))
         db.session.commit()
 
     q = SensorData.query.order_by(SensorData.id).all()
     for item in q:
-        print(item.temperature, item.humidity, item.time)
+        print(item.temperature, item.humidity)
     return resp
 
 
