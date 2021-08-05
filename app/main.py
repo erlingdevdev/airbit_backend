@@ -14,16 +14,12 @@ basedir = os.path.abspath(os.path.dirname(__file__, ))
 app = Flask(__name__, template_folder="./templates")
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = basedir
-# just to not have the runtime complain about it. tells us its not a production grade software, but we know this.
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# sqlite is probably not the best database to use, but this is not for production(so far at least)!
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
     os.path.join(basedir, 'Database.db')
-print(basedir)
-# secrets.token_urlsafe().encode()
-app.config['SECRET_KEY'] = b'7hW0ekQpq5CIgf9h4X7n82OLkiLttPPIbB1gTPmCiT_1r7naBHWCf_xctAW4wOhGe4tEhY9w_ZBqZJn8OdnMHsCvW_JbzBaMXg4wB6R2PyFjcIhFg87kuUFoIbkK3fv01F5JLN07eF57ib-khEYUFvr2KGYpKBUX5ew5r6HXOrw'
-# str(secrets.SystemRandom().getrandbits(246)).encode()
-app.config['SECURITY_PASSWORD_SALT'] = b'56233859612521323627298837306511598084560641616274247380468871052333874302'
+#
+app.config['SECRET_KEY'] = b'7secret123123sdsddchangeinproduction'
+app.config['SECURITY_PASSWORD_SALT'] = b'562338596125213236232923833356511598084560641616274247380468871052333874302'
 
 db.init_app(app)
 
@@ -68,9 +64,6 @@ def add_sensordata():
                                   pm25=data["pm25"], pm10=data["pm10"], northing="", easting=""))
         db.session.commit()
 
-    q = SensorData.query.order_by(SensorData.id).all()
-    for item in q:
-        print(item.temperature, item.humidity)
     return resp
 
 
